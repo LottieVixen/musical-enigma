@@ -35,14 +35,17 @@ document.querySelector('button').onClick = (function() {
   var options
   options = {
     data: text1.innerHTML,
-    publicKeys: openpgp.key.readArmored(text3.innerHTML).keys,
+    publicKeys: openpgp.key.readArmored(text3.innerHTML).keys
     //privateKeys: openpgp.key.readArmored(text2.innerHTML).keys,
     //passwords: ['set'],
-    armor: true
+    //armor: true
   };
+  text3.innerHTML = openpgp.key.readArmored(text3.innerHTML).keys;
   openpgp.encrypt(options).then(function(ciphertext) {
     encrypted = ciphertext.data;
     text4.innerHTML = ciphertext.data;
+  }).catch(function(error){
+    //ERROR	  
   });
 });
 /*
