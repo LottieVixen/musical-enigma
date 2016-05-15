@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <script type="text/javascript" src="../globalJS/openpgp.min.js"></script>
+    </head>
+    <body>
+        <script>
+            /*
+            #@# Well this didn't work.
+            
+            //var openpgp = require('openpgp');
+            var options, encrypted;
+            var pgp_message;
+            openpgp.encrypt({data:'Hello',passwords:'secret stuff',armor: true}).then(function(ciphertext) {
+                encrypted = ciphertext.data;
+                pgp_message = encrypted;
+                console.log(pgp_message);
+            });
+            
+            options = {
+                message: openpgp.message.readArmored(encrypted),     // parse armored message
+                password: 'secret stuff',
+                format: 'utf8'
+            };
+            
+            openpgp.decrypt(options).then(function(msg){console.log(msg.data);});
+            /*
+            document.body.appendChild(elem1);
+            */
+        </script>
+        <script src="main.js"></script>
+    </body>
+</html>
