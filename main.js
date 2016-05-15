@@ -1,5 +1,5 @@
-var encrypted;
-
+var options, encrypted;
+//make body, I know this is wrong but let me get away with it for now
 var text1 = document.createElement('textarea');
 var text2 = document.createElement('textarea');
 var text3 = document.createElement('textarea');
@@ -11,8 +11,23 @@ document.body.appendChild(text1);
 document.body.appendChild(text2);
 document.body.appendChild(br);
 document.body.appendChild(button);
+document.body.appendChild(br);
 document.body.appendChild(text3);
 document.body.appendChild(text4);
+//test//
+function load() {
+button.addEventListener("click",
+(function() {
+  openpgp.encrypt(options).then(function(ciphertext) {
+    encrypted = ciphertext.data;
+    text4.value = ciphertext.data;
+  }).catch(function(error){
+    text4.value = "THERE IS AN ERROR";  
+  });
+})
+,false);
+}
+document.addEventListener("DOMContentLoaded", load, false);
 
 var options = {
   userIds: [{
@@ -27,33 +42,21 @@ openpgp.generateKey(options).then(function(key) {
   var privkey = key.privateKeyArmored;
   var pubkey = key.publicKeyArmored;
 
-  text2.innerHTML = privkey;
-  text3.innerHTML = pubkey;
+  localStorage.privkey = text2.value = privkey;
+  localStorage.pubkey = text3.value = pubkey;
 });
-
-document.querySelector('button').onClick = (function() {
   var options
   options = {
-    data: text1.innerHTML,
-    publicKeys: openpgp.key.readArmored(text3.innerHTML).keys
-    //privateKeys: openpgp.key.readArmored(text2.innerHTML).keys,
-    //passwords: ['set'],
-    //armor: true
+    data: 'okay',
+    publicKeys: openpgp.key.readArmored(pubkey).keys
   };
-  text3.innerHTML = openpgp.key.readArmored(text3.innerHTML).keys;
+/*
+  document.getElementById('button').onClick = (function() {
   openpgp.encrypt(options).then(function(ciphertext) {
     encrypted = ciphertext.data;
-    text4.innerHTML = ciphertext.data;
+    text4.value = ciphertext.data;
   }).catch(function(error){
-    //ERROR	  
+    text4.value = "THERE IS AN ERROR";  
   });
 });
-/*
- * @param {string} - arg one
- * @param {string} - arg two
- * @param {string} - arg three
- * @returns {null} - returns nothing at all!
- */
-function test(arg1, arg2, arg3) {
-
-}
+*/
